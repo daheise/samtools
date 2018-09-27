@@ -49,6 +49,8 @@ LZ4OBJS  =  $(LZ4DIR)/lz4.o
 
 prefix      = /usr/local
 exec_prefix = $(prefix)
+libdir       = $(exec_prefix)/lib
+includedir  = $(exec_prefix)/include/samtools
 bindir      = $(exec_prefix)/bin
 datarootdir = $(prefix)/share
 mandir      = $(datarootdir)/man
@@ -64,6 +66,8 @@ INSTALL_DIR     = $(MKDIR_P) -m 755
 INSTALL_MAN     = $(INSTALL_DATA)
 INSTALL_PROGRAM = $(INSTALL)
 INSTALL_SCRIPT  = $(INSTALL_PROGRAM)
+INSTALL_INCLUDE = $(INSTALL_DATA)
+INSTALL_LIB     = $(INSTALL_DATA)
 
 
 PROGRAMS = samtools
@@ -304,6 +308,9 @@ install: $(PROGRAMS) $(MISC_PROGRAMS)
 	$(INSTALL_PROGRAM) $(MISC_PROGRAMS) $(DESTDIR)$(misc_bindir)
 	$(INSTALL_SCRIPT) $(MISC_SCRIPTS) $(DESTDIR)$(misc_bindir)
 	$(INSTALL_MAN) samtools.1 misc/wgsim.1 $(DESTDIR)$(man1dir)
+	$(MKDIR_P) $(includedir)
+	$(INSTALL_INCLUDE) *.h $(DESTDIR)$(includedir)
+	$(INSTALL_LIB) *.a $(DESTDIR)$(libdir)
 
 
 testclean:
